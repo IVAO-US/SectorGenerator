@@ -362,13 +362,13 @@ public class Program
 		);
 	}
 
-	static async Task<FrozenDictionary<string, HashSet<NamedCoordinate>>> WriteProceduresAsync(CIFP cifp, string includeFolder)
+	static async Task<FrozenDictionary<string, HashSet<NamedCoordinate>>> WriteProceduresAsync(CIFP cifp, SectorTweaks tweaks, string includeFolder)
 	{
 		string procedureFolder = Path.Combine(includeFolder, "procedures");
 		Directory.CreateDirectory(procedureFolder);
 
 		ConcurrentDictionary<string, HashSet<NamedCoordinate>> apProcFixes = [];
-		Procedures procs = new(cifp);
+		Procedures procs = new(cifp, tweaks);
 
 		var tecRoutes = await Tec.GetRoutesAsync();
 		var (tecLines, tecFixes) = Procedures.TecLines(cifp, tecRoutes);

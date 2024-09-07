@@ -3,9 +3,10 @@
 using static CIFPReader.Procedure;
 
 namespace SectorGenerator;
-internal class Procedures(CIFP cifp)
+internal class Procedures(CIFP cifp, SectorTweaks tweaks)
 {
 	private readonly CIFP _cifp = cifp;
+	private readonly SectorTweaks _tweaks = tweaks;
 
 	public (string[] sidLines, NamedCoordinate[] fixes) AirportSidLines(string apIcao)
 	{
@@ -305,9 +306,6 @@ internal class Procedures(CIFP cifp)
 	private static (string[] Lines, NamedCoordinate[] Fixes) Run(Coordinate startPoint, int elevation, decimal magVar, string airportIcao, IEnumerable<Instruction?> instructions)
 	{
 		List<string> lines = [];
-		HashSet<NamedCoordinate> fixes = [];
-		Procedure.Instruction? state = null;
-		bool breakPending = false;
 		string lastLine = "";
 
 		void addLine(string line)
@@ -319,9 +317,11 @@ internal class Procedures(CIFP cifp)
 			lastLine = line;
 		}
 
+		HashSet<NamedCoordinate> fixes = [];
 		foreach (var instruction in instructions)
 		{
-
+			Instruction? state = null;
+			bool breakPending = false;
 			if (instruction is null)
 			{
 				breakPending = true;

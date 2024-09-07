@@ -108,7 +108,7 @@ public class SID : Procedure
 	private readonly Instruction[] commonRoute = [];
 	private readonly Dictionary<string, Instruction[]> enrouteTransitions = [];
 
-	private SID(string name, string airport, Dictionary<string, Instruction[]> runwayTransitions, Instruction[] commonRoute, Dictionary<string, Instruction[]> enrouteTransitions) : base(name) =>
+	internal SID(string name, string airport, Dictionary<string, Instruction[]> runwayTransitions, Instruction[] commonRoute, Dictionary<string, Instruction[]> enrouteTransitions) : base(name) =>
 		(Airport, this.runwayTransitions, this.commonRoute, this.enrouteTransitions) = (airport, runwayTransitions, commonRoute, enrouteTransitions);
 
 	public SID(SIDLine[] lines, Dictionary<string, HashSet<ICoordinate>> fixes, Dictionary<string, HashSet<Navaid>> navaids, Dictionary<string, Aerodrome> aerodromes) : base("<EMPTY PROCEDURE>")

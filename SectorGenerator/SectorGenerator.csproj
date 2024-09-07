@@ -8,6 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Canada\**" />
+    <Compile Remove="docker\**" />
+    <EmbeddedResource Remove="Canada\**" />
+    <EmbeddedResource Remove="docker\**" />
+    <None Remove="Canada\**" />
+    <None Remove="docker\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="NetTopologySuite.IO" Version="1.14.0.1" />
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
     <PackageReference Include="WSleeman.Osm" Version="1.1.3" />
